@@ -1,35 +1,26 @@
 function almostIncreasingSequence(sequence) {
-   if (sequence[0]>sequence[1]){
-     for(var x=1; x<sequence.length-1; x++) {
-        var deff = sequence[x]<sequence[x+1];
-        if (deff===false) {
-          return false
+    if(sequence.length == 2) return true;
+
+    var error = 0;
+
+    for(var i = 0; i < sequence.length - 1; i++){
+        // if current value is greater than next value
+        if(sequence[i] >= sequence[i+1]){
+            // Test whether stepping back or forwards can fix the sequence
+            var noStepBack = sequence[i-1] >= sequence[i+1];
+            var noStepFoward = sequence[i] >= sequence[i+2];
+            // We only test for bridge gaps when i > 0
+            if(i > 0 && noStepBack && noStepFoward) {
+                // Cannot step back over gap forwards or backwards
+                // Counts as two errors ONLY WHEN BOTH PRESENT
+                error+=2;
+            } else{
+                // Typical error
+                error++;
+            }
         }
-     }
-     return true
-   }
-  for(var i=1; i<sequence.length-1; i++) {
-    var diff = sequence[i]<sequence[i+1];
-    console.log('diff', diff);
-    if(diff===false && sequence[i-1]<sequence[i+1]) {
-      sequence.splice((i), 1);
-      console.log('firstcheck', sequence)
-      break;
-      }
-
-    if(diff===false) {
-      sequence.splice((i+1), 1);
-      console.log('second check', sequence);
-      break;
-      }
-
+        if(error > 1) return false;
     }
-    for(var n=1; n<sequence.length-1; n++) {
-        var deff2 = sequence[n]<=sequence[n+1];
-        if (deff2===false) {
-          return false
-        }
-  }
-  console.log('shortcut')
-  return true
+
+    return true;
 }
