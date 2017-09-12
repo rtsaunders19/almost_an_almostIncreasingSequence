@@ -17,6 +17,5 @@ function reverseParentheses(s) {
             }
         }
     }
-
     return sArray.join("")
 }
