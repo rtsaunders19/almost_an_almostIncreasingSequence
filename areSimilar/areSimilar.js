@@ -1,21 +1,23 @@
-function areSimilar(arr1, arr2) {
-  for (var i=0; i<arr1.length; i++) {
-    if (arr1[i]!==arr2[i]) {
-      for (var j=i; j<arr1.length; j++) {
-        if (arr1[i]===arr2[j]) {
-          var swap1 = parseInt(arr2.splice(i,1));
-          var swap2 = parseInt(arr2.splice(j-1,1));
-          arr2.splice(j,0,swap1);
-          arr2.splice(i,0,swap2);
-          console.log(arr1, arr2);
-        }
-      }
-    }
-  }
-  for (var k=0; k<arr1.length; k++) {
-    if (arr1[k]!==arr2[k]) {
-      return false;
-    }
-  }
+function areSimilar(a, b) {
+  if (a.toString() == b.toString()) {
   return true;
+}
+
+var c = [];
+var d = [];
+
+for (var i=0; i<a.length; i++) {
+  if (a[i]!=b[i]) {
+    c.push(a[i]);
+    d.push(b[i]);
+  }
+}
+
+d = d.reverse();
+
+if (c.length===2 && (c.toString() == d.toString())) {
+  return true;
+} else {
+  return false;
+}
 }
